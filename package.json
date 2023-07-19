@@ -1,5 +1,5 @@
 {
-  "name": "typescript-nextjs-starter",
+  "name": "simi-web",
   "description": "A TypeScript starter for Next.js that includes all you need to build amazing projects",
   "version": "1.0.0",
   "private": true,
@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "next -p 3001",
     "build": "next build",
-    "start": "next start",
+    "start": "cross-env PORT=4000 npx next start",
     "fetch:api": "cross-env node_modules/.bin/ts-node desmo/src/fetch-api.ts",
     "type-check": "tsc --noEmit",
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
@@ -38,6 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "17.6.6",
     "@commitlint/config-conventional": "17.6.6",
+    "@types/fs-extra": "11.0.1",
     "@types/lodash": "4.14.195",
     "@types/node": "18.16.19",
     "@types/node-fetch": "2.6.4",

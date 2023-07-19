@@ -9,6 +9,7 @@ const nextConfig = {
   //     },
   //   ]
   // },
+  distDir: 'dist',
   reactStrictMode: true,
 };
 
