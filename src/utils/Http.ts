@@ -6,7 +6,7 @@ const loginErrorCode = [1, 2, 3, 4];
 
 // 标志异常弹窗出现仅一次
 let loginErrorFlag = false;
-const API_BASE_URL = `http://192.168.29.196:6001`
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 console.log('API_BASE_URL ->', API_BASE_URL)
 
 interface CreateHttpProps {
