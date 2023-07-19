@@ -1,0 +1,403 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/suggest": {
+      "get": {
+        "operationId": "SuggestController_suggest",
+        "summary": "单词提示",
+        "parameters": [
+          {
+            "name": "word",
+            "required": true,
+            "in": "query",
+            "description": "单词",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "suggest"
+        ]
+      }
+    },
+    "/api/word": {
+      "post": {
+        "operationId": "WordController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWordBookDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "单词本"
+        ]
+      },
+      "get": {
+        "operationId": "WordController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "单词本"
+        ]
+      }
+    },
+    "/api/word/{id}": {
+      "get": {
+        "operationId": "WordController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "单词本"
+        ]
+      },
+      "patch": {
+        "operationId": "WordController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWordBookDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "单词本"
+        ]
+      },
+      "delete": {
+        "operationId": "WordController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "单词本"
+        ]
+      }
+    },
+    "/api/word/phonetic-symbol": {
+      "post": {
+        "operationId": "WordController_phoneticSymbol",
+        "summary": "音标爬取",
+        "parameters": [
+          {
+            "name": "word",
+            "required": true,
+            "in": "query",
+            "description": "单词",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "单词本"
+        ]
+      }
+    },
+    "/api/sentence": {
+      "post": {
+        "operationId": "SentenceController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSentenceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "operationId": "SentenceController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/sentence/{id}": {
+      "get": {
+        "operationId": "SentenceController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "operationId": "SentenceController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSentenceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "operationId": "SentenceController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/record": {
+      "get": {
+        "operationId": "RecordController_query",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryRecordResDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "Glossa",
+    "description": "Glossa",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "token": {
+        "type": "apiKey",
+        "name": "token",
+        "in": "header",
+        "description": "验证令牌"
+      }
+    },
+    "schemas": {
+      "CreateWordBookDto": {
+        "type": "object",
+        "properties": {
+          "word": {
+            "type": "string",
+            "description": "单词"
+          }
+        },
+        "required": [
+          "word"
+        ]
+      },
+      "UpdateWordBookDto": {
+        "type": "object",
+        "properties": {
+          "word": {
+            "type": "string",
+            "description": "单词"
+          }
+        }
+      },
+      "CreateSentenceDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateSentenceDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "WordResDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "主键"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "创建时间"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "更新时间"
+          },
+          "deletedAt": {
+            "type": "string",
+            "description": "删除时间"
+          },
+          "deletedId": {
+            "type": "string",
+            "description": "删除id"
+          },
+          "word": {
+            "type": "string",
+            "description": "单词"
+          },
+          "phoneticSymbol": {
+            "type": "string",
+            "description": "音标"
+          },
+          "chinese": {
+            "type": "string",
+            "description": "中文"
+          },
+          "recordTime": {
+            "type": "string",
+            "description": "记录时间"
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt",
+          "deletedAt",
+          "word",
+          "phoneticSymbol",
+          "chinese"
+        ]
+      },
+      "QueryRecordResDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "description": "总数"
+          },
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WordResDto"
+            }
+          }
+        },
+        "required": [
+          "total",
+          "list"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "token": []
+    }
+  ]
+}

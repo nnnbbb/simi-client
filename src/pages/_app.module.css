@@ -1,0 +1,26 @@
+.main {
+  display        : flex;
+  flex-direction : column;
+  justify-content: space-between;
+  align-items    : center;
+  min-height     : 100vh;
+}
+
+.content {
+  /*flex 布局*/
+  display        : flex;
+  width          : 100%;
+  /*实现垂直居中*/
+  align-items    : center;
+  /*实现水平居中*/
+  justify-content: center;
+
+}
+
+.container {
+  /* border       : 3px solid #101214; */
+  width        : 50%;
+  margin-bottom: 10%;
+  display      : flex;
+  align-items  : center;
+}
