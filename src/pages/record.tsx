@@ -21,7 +21,7 @@ const Record: React.FC = () => {
         return <div style={{ width: "90%" }}>
           <Card style={{ width: "100%", }} bodyStyle={{ display: "flex", alignItems: "center" }}>
             <Tooltip title={item.chinese} placement="bottom">
-              <p >{item.word} </p>
+              <p>{item.phoneticSymbol} </p><p>{item.word} </p>
             </Tooltip>
             <PlayCircleFilled style={{ marginLeft: "20px" }} onClick={() => { window.open(`https://youglish.com/pronounce/${item.word}`) }} />
           </Card>
