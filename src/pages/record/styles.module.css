@@ -4,14 +4,14 @@
 }
 
 .delete-button {
-  position  : absolute;
-  top       : 50%;
-  left      : 85%;
-  transform : translate(-50%, -50%);
-  opacity   : 0;
-  transition: opacity 0.3s ease;
+  position     : absolute;
+  top          : 35%;
+  right        : 10%;
+  /* transform : translate(-50%, -50%);
+  opacity      : 0;
+  transition   : opacity 0.3s ease; */
 }
 
-.card:hover .delete-button {
+/* .card:hover .delete-button {
   opacity: 1;
-}
+} */
