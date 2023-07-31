@@ -10,19 +10,11 @@ import styles from './styles.module.css';
 const Record: React.FC = () => {
   const [items, setItems] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showDeleteButton, setShowDeleteButton] = useState(false);
 
   useEffect(() => {
     fetchData(currentPage);
-  }, [showDeleteButton]);
+  }, []);
 
-  const handleMouseEnter = () => {
-    setShowDeleteButton(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowDeleteButton(false);
-  };
 
   const handleConfirm = (item: WordRes) => {
     Modal.confirm({
@@ -30,8 +22,9 @@ const Record: React.FC = () => {
       okText: '确认',
       cancelText: '取消',
       content: `您确定要删除 ${item.word} 吗?`,
-      onOk() {
-        wordRemove({ id: (item.id as unknown as string) })
+      async onOk() {
+        await wordRemove({ id: (item.id as unknown as string) })
+        fetchData(currentPage);
       },
       onCancel() {
       },
@@ -44,24 +37,23 @@ const Record: React.FC = () => {
 
     let items = _.map(list, (value, key) => {
       let children = _.map(value, (item) => {
-        return <div className={styles.card}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          style={{ width: "90%" }}>
+        return <div className={styles.card}>
           <Card
             style={{ width: "100%" }}
             bodyStyle={{ display: "flex", alignItems: "center" }}
           >
             <Tooltip title={item.chinese} placement="bottom">
-              <p>{item.phoneticSymbol} </p><p>{item.word} </p>
+              <p> {item.phoneticSymbol} </p>
+              <p> {item.word} </p>
             </Tooltip>
+
             <PlayCircleFilled style={{ marginLeft: "20px" }} onClick={() => { window.open(`https://youglish.com/pronounce/${item.word}`) }} />
-          </Card>
-          {showDeleteButton && (
+
             <Button className={styles["delete-button"]} onClick={() => handleConfirm(item)}>
               <DeleteOutlined />
             </Button>
-          )}
+          </Card>
+
         </div>
 
       })
