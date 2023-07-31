@@ -7,7 +7,7 @@ export interface PathParameter {
   id: string;
 }
 /**
- * @description: 单词本 -
+ * @description: 单词 -
  */
 export const wordUpdate = async function (
   path: PathParameter,

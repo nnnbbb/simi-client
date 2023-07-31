@@ -42,3 +42,4 @@ next-env.d.ts
 .vscode
 logs
 dist
+desmo/src/api.json

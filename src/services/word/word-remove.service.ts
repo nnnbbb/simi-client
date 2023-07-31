@@ -7,7 +7,7 @@ export interface PathParameter {
   id: string;
 }
 /**
- * @description: 单词本 -
+ * @description: 单词 - 删除
  */
 export const wordRemove = async function (path: PathParameter): Promise<any> {
   return customRequest({

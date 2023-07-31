@@ -42,5 +42,5 @@ export interface WordRes {
   /**
    * @description: 记录时间
    */
-  recordTime?: string;
+  recordTime: string;
 }

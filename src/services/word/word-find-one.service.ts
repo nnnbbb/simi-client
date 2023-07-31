@@ -7,7 +7,7 @@ export interface PathParameter {
   id: string;
 }
 /**
- * @description: 单词本 -
+ * @description: 单词 -
  */
 export const wordFindOne = async function (path: PathParameter): Promise<any> {
   return customRequest({
