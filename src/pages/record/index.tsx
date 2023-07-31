@@ -1,9 +1,9 @@
 import { Timeline } from 'antd';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
+import WordCard from '../../components/WordCard';
 import { recordQuery } from '../../services/record/record-query.service';
 import { wordRemove } from '../../services/word/word-remove.service';
-import WordCard from './WordCard';
 
 const Record: React.FC = () => {
   const [items, setItems] = useState<any[]>([]);
