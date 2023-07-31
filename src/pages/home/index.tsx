@@ -1,8 +1,8 @@
 import { Button, Layout, message, Select } from 'antd';
 import { useState } from 'react';
-import { wordCreate } from '../services/word/word-create.service';
-import { Http } from '../utils/Http';
-import styles from './page.module.css';
+import { wordCreate } from '../../services/word/word-create.service';
+import { Http } from '../../utils/Http';
+import styles from './styles.module.css';
 
 const { Header, Content, Footer } = Layout;
 
@@ -17,7 +17,8 @@ export default function Home() {
 
   const handleConfirm = async () => {
     let res = await wordCreate({ word })
-    message.success("添加成功")
+    message.success("添加成功", 1)
+    // notification.success({ message: "添加成功" });
     setWord("")
   };
 
