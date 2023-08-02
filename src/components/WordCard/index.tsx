@@ -57,30 +57,19 @@ const WordCard: React.FC<IProps> = (props: IProps) => {
   return (
     <div className={styles['card-container']} {...handlers}>
       <Card
-        ref={cardTopRef}
-        className={`${styles['card']} ${styles['card-top']}`}
-        bodyStyle={{ display: 'flex', alignItems: 'center' }}
-        // onClick={() => setShowDeleteButton(!showDeleteButton)}
+        onClick={() => handleConfirm(item)}
+        style={{ height: cardBottomHeight ? cardBottomHeight : 0 }}
+        className={`${styles['card']} ${styles['card-bottom']}`}
       >
+        删除
+      </Card>
+      <Card ref={cardTopRef} className={`${styles['card']} ${styles['card-top']}`} bodyStyle={{ display: 'flex', alignItems: 'center' }}>
         <Tooltip title={item.chinese} placement="bottom">
           <p> {item.phoneticSymbol} </p>
           <p> {item.word} </p>
         </Tooltip>
 
         <PlayCircleFilled style={{ marginLeft: '20px' }} onClick={() => window.open(`https://youglish.com/pronounce/${item.word}`)} />
-
-        {/* {showDeleteButton && (
-          <Button className={styles["delete-button"]} onClick={() => handleConfirm(item)}>
-            <DeleteOutlined />
-          </Button>
-        )} */}
-      </Card>
-      <Card
-        onClick={() => handleConfirm(item)}
-        style={{ height: cardBottomHeight ? cardBottomHeight : 0 }}
-        className={`${styles['card']} ${styles['card-bottom']}`}
-      >
-        删除
       </Card>
     </div>
   );
