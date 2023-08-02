@@ -20,6 +20,9 @@ const WordCard: React.FC<IProps> = (props: IProps) => {
       const cardTopHeight = cardTopRef.current.offsetHeight;
       setCardBottomHeight(cardTopHeight);
     }
+    return () => {
+      closeDrawer();
+    };
   }, []);
 
   const handleConfirm = (item: WordRes) => {
@@ -30,25 +33,28 @@ const WordCard: React.FC<IProps> = (props: IProps) => {
       content: `您确定要删除 ${item.word} 吗?`,
       onOk: onRemove,
       onCancel() {},
+      maskClosable: false,
     });
   };
-  const handleOutsideClick = (event: MouseEvent) => {
+  const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
     if (cardTopRef.current && !cardTopRef.current.contains(event.target as HTMLElement | null)) {
       // 处理点击卡片外的其他位置
-      resetCardPosition();
-      document.removeEventListener('click', handleOutsideClick);
+      closeDrawer();
     }
   };
-  const resetCardPosition = () => cardTopRef.current && (cardTopRef.current.style.transform = 'translateX(0px)');
-
+  const closeDrawer = () => {
+    cardTopRef.current && (cardTopRef.current.style.transform = 'translateX(0px)');
+    document.removeEventListener('click', handleOutsideClick);
+    document.removeEventListener('touchmove', handleOutsideClick);
+  };
+  const openDrawer = () => {
+    cardTopRef.current && (cardTopRef.current.style.transform = 'translateX(-75px)');
+    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('touchmove', handleOutsideClick);
+  };
   const handlers = useSwipeable({
-    onSwipedLeft: (e) => {
-      cardTopRef.current && (cardTopRef.current.style.transform = 'translateX(-75px)');
-      document.addEventListener('click', handleOutsideClick);
-    },
-    onSwipedRight: (e) => {
-      resetCardPosition();
-    },
+    onSwipedLeft: (e) => openDrawer(),
+    onSwipedRight: (e) => closeDrawer(),
     swipeDuration: 500,
     preventScrollOnSwipe: true,
     trackMouse: true,

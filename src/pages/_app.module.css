@@ -6,6 +6,10 @@
   min-height     : 100vh;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 .content {
   /*flex 布局*/
   display        : flex;
