@@ -35,7 +35,7 @@ export default function Home() {
           options={suggest?.map((it) => {
             return {
               value: it.entry,
-              label: `${it.entry} ${it.explain}`,
+              label: `${it.entry} ${it.explain ? it.explain : ''}`,
             };
           })}
         ></AutoComplete>

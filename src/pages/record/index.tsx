@@ -10,41 +10,61 @@ const Record: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetchData(currentPage);
-  }, []);
+    fetchData();
 
+    const debouncedScroll = _.debounce(handleScroll, 500);
+    window.addEventListener('scroll', debouncedScroll);
+    return () => {
+      window.removeEventListener('scroll', debouncedScroll);
+    };
+  }, [currentPage]);
 
-  const fetchData = async (page: number) => {
-    let res = await recordQuery()
-    const list = _.groupBy(res.list, "recordTime")
+  const handleScroll = () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const scrollHeight = document.documentElement.scrollHeight;
+
+    if (scrollTop + windowHeight >= scrollHeight) {
+      setCurrentPage((prevPage) => prevPage + 1); // 使用函数式更新
+      fetchData();
+    }
+  };
+
+  const fetchData = async () => {
+    let res = await recordQuery({ page: currentPage, pageSize: 3 });
+    const list = _.groupBy(res.list, 'recordTime');
 
     let items = _.map(list, (value, key) => {
-      let children: any = _.map(value, (item) => {
-        return <WordCard
-          item={item}
-          onRemove={async () => {
-            await wordRemove({ id: (item.id as unknown as string) })
-            fetchData(currentPage);
-          }}
-        />
-
-      })
-      return { color: 'black', children: <>{key} {...children}</> }
-    })
-    setItems(items)
+      let children = _.map(value, (item) => {
+        return (
+          <WordCard
+            item={item}
+            onRemove={async () => {
+              await wordRemove({ id: item.id as unknown as string });
+              fetchData();
+            }}
+          />
+        );
+      });
+      return { key, color: 'black', children: <>{key} {...children}</> };
+    });
+    setItems((prevItems) => {
+      prevItems.map((it) => _.remove(items, { key: it.key }));
+      return [...prevItems, ...items];
+    });
   };
+
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <div style={{ height: '100%', width: '100%' }}>
       <Timeline
         style={{
-          marginTop: "50px",
-          marginLeft: "10px",
+          marginTop: '50px',
+          marginLeft: '10px',
         }}
         items={items}
       />
     </div>
   );
-
-}
+};
 
 export default Record;

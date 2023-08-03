@@ -1,11 +1,11 @@
 import * as m from '../models';
 import { customRequest } from '@/utils/httpFactory/custom-request';
 /**
- * @description: 单词 - 创建
+ * @description: UserController_create -
  */
-export const wordCreate = async function (requestBody: m.CreateWord): Promise<any> {
+export const userCreate = async function (requestBody: m.CreateUser): Promise<any> {
   return customRequest({
-    url: '/word',
+    url: '/user',
     method: 'post',
     mediaType: 'application/json',
     body: requestBody,

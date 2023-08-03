@@ -9,9 +9,7 @@ export interface QueryParameter {
 /**
  * @description: suggest - 单词提示
  */
-export const suggestSuggest = async function (
-  query: QueryParameter,
-): Promise<any> {
+export const suggestGet = async function (query: QueryParameter): Promise<any> {
   return customRequest({
     url: '/suggest',
     method: 'get',

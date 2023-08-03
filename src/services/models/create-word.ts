@@ -1,4 +1,4 @@
-export interface CreateWordBook {
+export interface CreateWord {
   /**
    * @description: 单词
    */
