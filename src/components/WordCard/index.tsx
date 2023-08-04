@@ -37,18 +37,23 @@ const WordCard: React.FC<IProps> = (props: IProps) => {
     });
   };
   const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
-    if (cardTopRef.current && !cardTopRef.current.contains(event.target as HTMLElement | null)) {
+    if (
+      cardTopRef.current &&
+      !cardTopRef.current.contains(event.target as HTMLElement | null)
+    ) {
       // 处理点击卡片外的其他位置
       closeDrawer();
     }
   };
   const closeDrawer = () => {
-    cardTopRef.current && (cardTopRef.current.style.transform = 'translateX(0px)');
+    cardTopRef.current &&
+      (cardTopRef.current.style.transform = 'translateX(0px)');
     document.removeEventListener('click', handleOutsideClick);
     document.removeEventListener('touchmove', handleOutsideClick);
   };
   const openDrawer = () => {
-    cardTopRef.current && (cardTopRef.current.style.transform = 'translateX(-75px)');
+    cardTopRef.current &&
+      (cardTopRef.current.style.transform = 'translateX(-75px)');
     document.addEventListener('click', handleOutsideClick);
     document.addEventListener('touchmove', handleOutsideClick);
   };
@@ -69,13 +74,22 @@ const WordCard: React.FC<IProps> = (props: IProps) => {
       >
         删除
       </Card>
-      <Card ref={cardTopRef} className={`${styles['card']} ${styles['card-top']}`} bodyStyle={{ display: 'flex', alignItems: 'center' }}>
+      <Card
+        ref={cardTopRef}
+        className={`${styles['card']} ${styles['card-top']}`}
+        bodyStyle={{ display: 'flex', alignItems: 'center' }}
+      >
         <Tooltip title={item.chinese} placement="bottom">
           <p> {item.phoneticSymbol} </p>
           <p> {item.word} </p>
         </Tooltip>
 
-        <PlayCircleFilled style={{ marginLeft: '20px' }} onClick={() => window.open(`https://youglish.com/pronounce/${item.word}`)} />
+        <PlayCircleFilled
+          style={{ marginLeft: '20px' }}
+          onClick={() =>
+            window.open(`https://youglish.com/pronounce/${item.word}`)
+          }
+        />
       </Card>
     </div>
   );

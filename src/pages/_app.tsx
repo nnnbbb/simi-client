@@ -8,16 +8,23 @@ interface LayoutProps {
 }
 const { Header, Content, Footer } = AntdLayout;
 
-const Layout = ({ children }: LayoutProps) => <div className="layout">{children}</div>;
+const Layout = ({ children }: LayoutProps) => (
+  <div className="layout">{children}</div>
+);
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AntdLayout>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
       </Head>
 
-      <Header style={{ display: 'flex', alignItems: 'center', background: '#fff' }}>
+      <Header
+        style={{ display: 'flex', alignItems: 'center', background: '#fff' }}
+      >
         <Menu
           theme="light"
           mode="horizontal"
