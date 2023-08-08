@@ -12,7 +12,7 @@ export default function Home() {
 
   async function onSearch(word: string) {
     let res = await Http.get(`/suggest?word=${word}`);
-    setSuggest(res.data.entries);
+    setSuggest(res.data.entries || []);
   }
 
   const handleConfirm = async () => {
@@ -23,11 +23,11 @@ export default function Home() {
     setChinese('');
   };
 
-  const handleOnBlur = async () => {
-    if (word.length === 0) {
-      setShowChineseInput(false);
-    } else {
+  const handleShowChineseInput = (word: string) => {
+    if (word.length > 0 && suggest?.length === 0) {
       setShowChineseInput(true);
+    } else {
+      setShowChineseInput(false);
     }
   };
 
@@ -39,11 +39,13 @@ export default function Home() {
             size="large"
             showSearch
             value={word}
-            onBlur={handleOnBlur}
             style={{ width: '100%' }}
             placeholder="在此输入单词或文本"
             onSearch={(word) => onSearch(word)}
-            onChange={(word) => setWord(word)}
+            onChange={(word) => {
+              setWord(word);
+              handleShowChineseInput(word);
+            }}
             showArrow={false}
             options={suggest?.map((it) => {
               return {
