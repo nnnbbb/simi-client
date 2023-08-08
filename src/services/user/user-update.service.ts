@@ -9,7 +9,10 @@ export interface PathParameter {
 /**
  * @description: UserController_update -
  */
-export const userUpdate = async function (path: PathParameter, requestBody: m.UpdateUser): Promise<any> {
+export const userUpdate = async function (
+  path: PathParameter,
+  requestBody: m.UpdateUser,
+): Promise<any> {
   return customRequest({
     url: '/user/{id}',
     method: 'patch',

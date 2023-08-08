@@ -3,7 +3,9 @@ import { customRequest } from '@/utils/httpFactory/custom-request';
 /**
  * @description: UserController_create -
  */
-export const userCreate = async function (requestBody: m.CreateUser): Promise<any> {
+export const userCreate = async function (
+  requestBody: m.CreateUser,
+): Promise<any> {
   return customRequest({
     url: '/user',
     method: 'post',

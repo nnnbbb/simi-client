@@ -19,7 +19,9 @@ export interface QueryParameter {
 /**
  * @description: 单词 - 列表
  */
-export const wordFindAll = async function (query: QueryParameter): Promise<any> {
+export const wordFindAll = async function (
+  query: QueryParameter,
+): Promise<any> {
   return customRequest({
     url: '/word',
     method: 'get',

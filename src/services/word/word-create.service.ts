@@ -3,7 +3,9 @@ import { customRequest } from '@/utils/httpFactory/custom-request';
 /**
  * @description: 单词 - 创建
  */
-export const wordCreate = async function (requestBody: m.CreateWord): Promise<any> {
+export const wordCreate = async function (
+  requestBody: m.CreateWord,
+): Promise<any> {
   return customRequest({
     url: '/word',
     method: 'post',

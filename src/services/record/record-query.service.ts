@@ -19,7 +19,9 @@ export interface QueryParameter {
 /**
  * @description: RecordController_query -
  */
-export const recordQuery = async function (query: QueryParameter): Promise<m.QueryRecordRes> {
+export const recordQuery = async function (
+  query: QueryParameter,
+): Promise<m.QueryRecordRes> {
   return customRequest({
     url: '/record',
     method: 'get',
