@@ -1,4 +1,4 @@
-import { Timeline } from 'antd';
+import { Timeline, Tooltip } from 'antd';
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import WordCard from '../../components/WordCard';
@@ -24,7 +24,8 @@ const Record: React.FC = () => {
     const windowHeight = window.innerHeight;
     const scrollHeight = document.documentElement.scrollHeight;
 
-    if (scrollTop + windowHeight >= scrollHeight) {
+    const h = scrollTop + windowHeight + 500;
+    if (h >= scrollHeight) {
       setCurrentPage((prevPage) => prevPage + 1); // 使用函数式更新
       fetchData();
     }
@@ -46,7 +47,21 @@ const Record: React.FC = () => {
           />
         );
       });
-      return { key, color: 'black', children: <>{key} {...children}</> };
+
+      return {
+        key,
+        color: 'black',
+        children: (
+          <>
+            {
+              <Tooltip title={children.length} placement="right">
+                {key}
+              </Tooltip>
+            }{' '}
+            {...children}
+          </>
+        ),
+      };
     });
     setItems((prevItems) => {
       prevItems.map((it) => _.remove(items, { key: it.key }));
