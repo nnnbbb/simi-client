@@ -59,7 +59,7 @@ export default function Home() {
             placeholder="中文"
             value={chinese}
             onChange={(e) => setChinese(e.target.value)}
-            style={{ display: showChineseInput ? '' : 'none' }}
+            // style={{ display: showChineseInput ? '' : 'none' }}
           />
         </div>
         <div style={{ width: '20%', margin: '16px' }}>
