@@ -1,6 +1,5 @@
 import { PlayCircleFilled } from '@ant-design/icons';
 import { Card, Input, message, Select, Tooltip } from 'antd';
-import _ from 'lodash';
 import { useEffect, useState } from 'react';
 import { WordRes } from '../../services/models';
 import { recordGetMemory } from '../../services/record/record-get-memory.service';
@@ -24,7 +23,6 @@ export default function Memory() {
     let word = await recordGetMemory();
     setItem(word);
   };
-  const recordMemoryReal = _.debounce(recordMemory, 1000);
 
   const handleEnter = async (event: any) => {
     const v = event.target.value as string;
@@ -37,11 +35,10 @@ export default function Memory() {
       setTimes((prev: number) => {
         const t = prev - 1;
         if (t === 0) {
-          message.success('下一个');
-
-          recordMemory({ word: v });
-          fetchData();
-          setTimes(exerciseCount);
+          recordMemory({ word: v }).then((r) => {
+            fetchData();
+            setTimes(exerciseCount);
+          });
         }
 
         return t;
@@ -78,8 +75,6 @@ export default function Memory() {
 
             <div style={{ marginTop: 50 }}>
               <Card
-                // ref={cardTopRef}
-                // className={`${styles['card']} ${styles['card-top']}`}
                 style={{ width: '80%' }}
                 bodyStyle={{ display: 'flex', alignItems: 'center' }}
               >
