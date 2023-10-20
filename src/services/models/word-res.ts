@@ -43,4 +43,9 @@ export interface WordRes {
    * @description: 记录时间
    */
   recordTime: string;
+
+  /**
+   * @description: 记忆次数
+   */
+  memoryTimes?: number;
 }

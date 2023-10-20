@@ -17,7 +17,7 @@ export interface QueryParameter {
   sort?: string;
 }
 /**
- * @description: RecordController_query -
+ * @description: 记录 - 单词时间线
  */
 export const recordQuery = async function (
   query: QueryParameter,

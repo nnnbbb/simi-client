@@ -4,5 +4,6 @@ export * from './create-sentence';
 export * from './update-sentence';
 export * from './word-res';
 export * from './query-record-res';
+export * from './memory';
 export * from './create-user';
 export * from './update-user';

@@ -28,6 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Menu
           theme="light"
           mode="horizontal"
+          style={{ width: '100%' }}
           items={[
             {
               key: '/home',
@@ -36,6 +37,10 @@ export default function App({ Component, pageProps }: AppProps) {
             {
               key: '/record',
               label: <Link href="/record">Record</Link>,
+            },
+            {
+              key: '/memory',
+              label: <Link href="/memory">Memory</Link>,
             },
           ]}
         />

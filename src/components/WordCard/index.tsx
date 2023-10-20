@@ -7,7 +7,7 @@ import styles from './styles.module.css';
 
 interface IProps {
   item: WordRes;
-  onRemove: () => void;
+  onRemove?: () => void;
 }
 
 const WordCard: React.FC<IProps> = (props: IProps) => {

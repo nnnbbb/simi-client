@@ -10,7 +10,7 @@ import { mkdir, rmdir } from './utils/fileSystem';
 import log from './utils/log.util';
 os.EOL
 
-const host = 'http://192.168.29.196:6001';
+const host = 'http://127.0.0.1:6001';
 console.log = log;
 
 async function fetchApi() {
