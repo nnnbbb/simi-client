@@ -24,10 +24,17 @@
   display      : flex;
   align-items  : center;
 }
+
+@media (max-width: 768px) {
+  .container {
+    width        : 90%;
+    margin-bottom: 30%;
+  }
+}
+
 .inputContainer {
   margin-top: 50px;
-  display  : flex;
-  flex-wrap: wrap;
-  width    : 80%;
+  display   : flex;
+  width     : 80%;
   /* 根据需要调整宽度 */
 }
