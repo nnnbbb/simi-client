@@ -1,5 +1,5 @@
 import { PlayCircleFilled } from '@ant-design/icons';
-import { Card, Input, message, Select, Tooltip } from 'antd';
+import { Card, DatePicker, Input, message, Select, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
 import { WordRes } from '../../services/models';
 import { recordGetMemory } from '../../services/record/record-get-memory.service';
@@ -10,6 +10,7 @@ export default function Memory() {
   const [item, setItem] = useState<WordRes>();
   const [inputValue, setInputValue] = useState('');
   const [exerciseCount, setExerciseCount] = useState(3);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [times, setTimes] = useState(exerciseCount);
 
   useEffect(() => {
@@ -19,9 +20,17 @@ export default function Memory() {
     fetchData();
   }, [exerciseCount]);
 
-  const fetchData = async () => {
-    let word = await recordGetMemory();
+  const fetchData = async (date?: string) => {
+    let word = await recordGetMemory({
+      recordTime: date ? date : selectedDate!,
+    });
     setItem(word);
+  };
+
+  const handleDateChange = (date: any) => {
+    const formattedDate = date ? date.format('YYYY-MM-DD') : null;
+    fetchData(formattedDate);
+    setSelectedDate(formattedDate);
   };
 
   const handleEnter = async (event: any) => {
@@ -54,25 +63,29 @@ export default function Memory() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        {item && (
-          <div style={{ flex: 1 }}>
-            <div>
-              <Select
-                size="large"
-                placeholder="输入单词"
-                style={{ width: '60px' }}
-                value={exerciseCount}
-                options={Array.from('x'.repeat(50)).map((v, i) => ({
-                  value: i,
-                  label: i,
-                }))}
-                onChange={(v) => {
-                  setExerciseCount(v);
-                  localStorage.setItem('exerciseCount', String(v));
-                }}
-              />
-            </div>
+        <div style={{ flex: 1 }}>
+          <div>
+            <Select
+              size="large"
+              style={{ width: '60px' }}
+              value={exerciseCount}
+              options={Array.from('x'.repeat(50)).map((v, i) => ({
+                value: i,
+                label: i,
+              }))}
+              onChange={(v) => {
+                setExerciseCount(v);
+                localStorage.setItem('exerciseCount', String(v));
+              }}
+            />
 
+            <DatePicker
+              size="large"
+              style={{ marginLeft: 10 }}
+              onChange={handleDateChange}
+            />
+          </div>
+          {item && (
             <div style={{ marginTop: 50 }}>
               <Card
                 style={{ width: '80%' }}
@@ -93,17 +106,17 @@ export default function Memory() {
                 />
               </Card>
             </div>
-            <div className={styles.inputContainer}>
-              <Input
-                size="large"
-                placeholder="输入单词"
-                value={inputValue}
-                onChange={handleChange}
-                onPressEnter={handleEnter}
-              />
-            </div>
+          )}
+          <div className={styles.inputContainer}>
+            <Input
+              size="large"
+              placeholder="输入单词"
+              value={inputValue}
+              onChange={handleChange}
+              onPressEnter={handleEnter}
+            />
           </div>
-        )}
+        </div>
       </div>
     </main>
   );

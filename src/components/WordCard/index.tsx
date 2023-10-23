@@ -80,6 +80,7 @@ const WordCard: React.FC<IProps> = (props: IProps) => {
         bodyStyle={{ display: 'flex', alignItems: 'center' }}
       >
         <Tooltip title={item.chinese} placement="bottom">
+          <p> Memory Times: {item.memoryTimes} </p>
           <p> {item.phoneticSymbol} </p>
           <p> {item.word} </p>
         </Tooltip>
