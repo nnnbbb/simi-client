@@ -40,6 +40,11 @@ export interface WordRes {
   chinese: string;
 
   /**
+   * @description: 中文
+   */
+  sentence?: string;
+
+  /**
    * @description: 记录时间
    */
   recordTime: string;

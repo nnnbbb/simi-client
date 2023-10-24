@@ -8,6 +8,7 @@ export default function Home() {
   const [suggest, setSuggest] = useState<any[]>([]);
   const [word, setWord] = useState('');
   const [chinese, setChinese] = useState('');
+  const [sentence, setSentence] = useState('');
   const [showChineseInput, setShowChineseInput] = useState(false);
 
   async function onSearch(word: string) {
@@ -16,11 +17,12 @@ export default function Home() {
   }
 
   const handleConfirm = async () => {
-    let res = await wordCreate({ word, chinese });
+    let res = await wordCreate({ word, chinese, sentence });
     message.success('添加成功', 1);
     // notification.success({ message: "添加成功" });
     setWord('');
     setChinese('');
+    setSentence('');
   };
 
   const handleShowChineseInput = (word: string) => {
@@ -60,6 +62,12 @@ export default function Home() {
             value={chinese}
             onChange={(e) => setChinese(e.target.value)}
             // style={{ display: showChineseInput ? '' : 'none' }}
+          />
+          <Input
+            size="large"
+            placeholder="例句"
+            value={sentence}
+            onChange={(e) => setSentence(e.target.value)}
           />
         </div>
         <div style={{ width: '20%', margin: '16px' }}>

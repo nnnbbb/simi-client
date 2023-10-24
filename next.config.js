@@ -10,6 +10,10 @@ const nextConfig = {
     ]
   },
   distDir: 'dist',
+  /**
+   * @see https://stackoverflow.com/a/60619061/14195400
+   * useEffect触发两次
+   */
   reactStrictMode: true,
 };
 

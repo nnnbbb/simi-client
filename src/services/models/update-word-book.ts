@@ -8,4 +8,9 @@ export interface UpdateWordBook {
    * @description: 中文意思
    */
   chinese?: string;
+
+  /**
+   * @description: 例句
+   */
+  sentence?: string;
 }

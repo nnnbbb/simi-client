@@ -83,6 +83,7 @@ const WordCard: React.FC<IProps> = (props: IProps) => {
           <p> Memory Times: {item.memoryTimes} </p>
           <p> {item.phoneticSymbol} </p>
           <p> {item.word} </p>
+          <p> {item.sentence} </p>
         </Tooltip>
 
         <PlayCircleFilled
