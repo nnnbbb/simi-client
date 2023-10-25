@@ -41,6 +41,13 @@ export default function Memory() {
     router.push({ query: { ...router.query, date: formattedDate } });
   };
 
+  if (typeof window !== 'undefined' && navigator.userAgent.includes('Mobile')) {
+    const windowHeight = window.innerHeight;
+    message.config({
+      top: windowHeight - 400, // 距离顶部的距离
+    });
+  }
+
   const handleEnter = async (event: any) => {
     const v = event.target.value as string;
     // 处理回车事件的逻辑
