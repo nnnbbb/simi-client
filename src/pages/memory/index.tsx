@@ -1,5 +1,7 @@
 import { PlayCircleFilled } from '@ant-design/icons';
 import { Card, DatePicker, Input, message, Select, Tooltip } from 'antd';
+import dayjs from 'dayjs';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { WordRes } from '../../services/models';
 import { recordGetMemory } from '../../services/record/record-get-memory.service';
@@ -10,17 +12,21 @@ export default function Memory() {
   const [item, setItem] = useState<WordRes>();
   const [inputValue, setInputValue] = useState('');
   const [exerciseCount, setExerciseCount] = useState(3);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState<any>(null);
   const [times, setTimes] = useState(exerciseCount);
+  const router = useRouter();
 
   useEffect(() => {
     let n = localStorage.getItem('exerciseCount') ?? 3;
     setExerciseCount(+n);
     setTimes(+n);
-    fetchData();
-  }, [exerciseCount]);
 
-  const fetchData = async (date?: string) => {
+    const date = router.query.date as string;
+    setSelectedDate(date);
+    fetchData(date);
+  }, [exerciseCount, router.query.date]);
+
+  const fetchData = async (date?: any) => {
     let word = await recordGetMemory({
       recordTime: date ? date : selectedDate!,
     });
@@ -30,7 +36,9 @@ export default function Memory() {
   const handleDateChange = (date: any) => {
     const formattedDate = date ? date.format('YYYY-MM-DD') : null;
     fetchData(formattedDate);
-    setSelectedDate(formattedDate);
+    setSelectedDate(date);
+    router.query.date = formattedDate;
+    router.push({ query: { ...router.query, date: formattedDate } });
   };
 
   const handleEnter = async (event: any) => {
@@ -67,7 +75,7 @@ export default function Memory() {
           <div>
             <Select
               size="large"
-              style={{ width: '60px' }}
+              style={{ width: '65px' }}
               value={exerciseCount}
               options={Array.from('x'.repeat(50)).map((v, i) => ({
                 value: i,
@@ -81,6 +89,7 @@ export default function Memory() {
 
             <DatePicker
               size="large"
+              value={selectedDate ? dayjs(selectedDate) : null}
               style={{ marginLeft: 10 }}
               onChange={handleDateChange}
             />
@@ -92,11 +101,20 @@ export default function Memory() {
                 bodyStyle={{ display: 'flex', alignItems: 'center' }}
               >
                 <Tooltip title={item.chinese} placement="bottom">
+                  <p> Record Time: {item.recordTime} </p>
                   <p> Hit: {times} </p>
                   <p> Memory Times: {item.memoryTimes} </p>
                   <p> {item.phoneticSymbol} </p>
-                  <p> {item.word} </p>
-                  <p> {item.sentence} </p>
+                  <p>
+                    {' '}
+                    {times <= 3 ? '*'.repeat(item.word.length) : item.word}{' '}
+                  </p>
+                  <p>
+                    {' '}
+                    {times <= 3
+                      ? '*'.repeat(item?.sentence?.length ?? 0)
+                      : item.sentence}{' '}
+                  </p>
                 </Tooltip>
 
                 <PlayCircleFilled
