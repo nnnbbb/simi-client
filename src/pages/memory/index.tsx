@@ -1,5 +1,13 @@
 import { PlayCircleFilled } from '@ant-design/icons';
-import { Card, DatePicker, Input, message, Select, Tooltip } from 'antd';
+import {
+  Button,
+  Card,
+  DatePicker,
+  Input,
+  message,
+  Select,
+  Tooltip,
+} from 'antd';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -41,6 +49,13 @@ export default function Memory() {
     router.push({ query: { ...router.query, date: formattedDate } });
   };
 
+  const nextWord = () => {
+    recordMemory({ word: item!.word }).then((r) => {
+      fetchData();
+      setTimes(exerciseCount);
+    });
+  };
+
   if (typeof window !== 'undefined' && navigator.userAgent.includes('Mobile')) {
     const windowHeight = window.innerHeight;
     message.config({
@@ -59,10 +74,7 @@ export default function Memory() {
       setTimes((prev: number) => {
         const t = prev - 1;
         if (t === 0) {
-          recordMemory({ word: v }).then((r) => {
-            fetchData();
-            setTimes(exerciseCount);
-          });
+          nextWord();
         }
 
         return t;
@@ -75,23 +87,43 @@ export default function Memory() {
     setInputValue(event.target.value);
   };
 
+  const handleExerciseCountChange = (times: number) => {
+    setExerciseCount(times);
+    localStorage.setItem('exerciseCount', String(times));
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.container}>
         <div style={{ flex: 1 }}>
           <div>
+            <Button size="large" onClick={() => handleExerciseCountChange(15)}>
+              上
+            </Button>
+            <Button
+              size="large"
+              style={{ marginLeft: 10 }}
+              onClick={() => handleExerciseCountChange(10)}
+            >
+              中
+            </Button>
+            <Button
+              size="large"
+              style={{ marginLeft: 10 }}
+              onClick={() => handleExerciseCountChange(5)}
+            >
+              下
+            </Button>
+
             <Select
               size="large"
-              style={{ width: '65px' }}
+              style={{ width: '65px', marginLeft: 10 }}
               value={exerciseCount}
               options={Array.from('x'.repeat(50)).map((v, i) => ({
                 value: i,
                 label: i,
               }))}
-              onChange={(v) => {
-                setExerciseCount(v);
-                localStorage.setItem('exerciseCount', String(v));
-              }}
+              onChange={(v) => handleExerciseCountChange(v)}
             />
 
             <DatePicker
@@ -100,6 +132,13 @@ export default function Memory() {
               style={{ marginLeft: 10 }}
               onChange={handleDateChange}
             />
+            <Button
+              size="large"
+              style={{ marginLeft: 10 }}
+              onClick={() => nextWord()}
+            >
+              下一个
+            </Button>
           </div>
           {item && (
             <div style={{ marginTop: 50 }}>
