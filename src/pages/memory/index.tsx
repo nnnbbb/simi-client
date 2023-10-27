@@ -34,6 +34,13 @@ export default function Memory() {
     fetchData(date);
   }, [exerciseCount, router.query.date]);
 
+  useEffect(() => {
+    document.addEventListener('keydown', keydownHandler);
+    return () => {
+      document.removeEventListener('keydown', keydownHandler);
+    };
+  }, [item]);
+
   const fetchData = async (date?: any) => {
     let word = await recordGetMemory({
       recordTime: date ? date : selectedDate!,
@@ -49,11 +56,16 @@ export default function Memory() {
     router.push({ query: { ...router.query, date: formattedDate } });
   };
 
-  const nextWord = () => {
-    recordMemory({ word: item!.word }).then((r) => {
-      fetchData();
-      setTimes(exerciseCount);
-    });
+  const nextWord = async () => {
+    await recordMemory({ word: item!.word });
+    fetchData();
+    setTimes(exerciseCount);
+  };
+
+  const keydownHandler = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' && e.ctrlKey) {
+      nextWord();
+    }
   };
 
   if (typeof window !== 'undefined' && navigator.userAgent.includes('Mobile')) {
