@@ -10,7 +10,7 @@ import {
 } from 'antd';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { WordRes } from '../../services/models';
 import { recordGetMemory } from '../../services/record/record-get-memory.service';
 import { recordMemory } from '../../services/record/record-memory.service';
@@ -22,9 +22,13 @@ export default function Memory() {
   const [exerciseCount, setExerciseCount] = useState(3);
   const [selectedDate, setSelectedDate] = useState<any>(null);
   const [times, setTimes] = useState(exerciseCount);
+  const inputRef = useRef<any>(null);
+
   const router = useRouter();
 
   useEffect(() => {
+    inputRef && inputRef.current?.focus();
+
     let n = localStorage.getItem('exerciseCount') ?? 3;
     setExerciseCount(+n);
     setTimes(+n);
@@ -192,6 +196,7 @@ export default function Memory() {
               value={inputValue}
               onChange={handleChange}
               onPressEnter={handleEnter}
+              ref={inputRef}
             />
           </div>
         </div>
