@@ -101,6 +101,7 @@ export default function Memory() {
 
   const handleExerciseCountChange = (times: number) => {
     setExerciseCount(times);
+    setTimes(times);
     localStorage.setItem('exerciseCount', String(times));
   };
 
