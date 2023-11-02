@@ -37,7 +37,16 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
 
       <Header
-        style={{ display: 'flex', alignItems: 'center', background: '#fff' }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          background: '#fff',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 999,
+        }}
       >
         <Menu
           theme="light"
@@ -61,7 +70,15 @@ export default function App({ Component, pageProps }: AppProps) {
       </Header>
       {/* <Content className={styles.content}> */}
 
-      <Component {...pageProps} />
+      <div
+        style={{
+          paddingTop: 64,
+          overflowY: 'auto',
+          height: 'calc(100vh-64px)',
+        }}
+      >
+        <Component {...pageProps} />
+      </div>
       {/* </Content> */}
 
       {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer> */}
