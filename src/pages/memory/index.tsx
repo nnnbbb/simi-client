@@ -161,31 +161,29 @@ export default function Memory() {
             <div style={{ marginTop: 50 }}>
               <Card
                 style={{ width: '80%' }}
-                bodyStyle={{ display: 'flex', alignItems: 'center' }}
+                bodyStyle={{ alignItems: 'center' }}
               >
-                <Tooltip title={item.chinese} placement="bottom">
-                  <p> Record Time: {item.recordTime} </p>
-                  <p> Hit: {times} </p>
-                  <p> Memory Times: {item.memoryTimes} </p>
-                  <p> {item.phoneticSymbol} </p>
-                  <p>
-                    {' '}
-                    {times <= 3 ? '*'.repeat(item.word.length) : item.word}{' '}
-                  </p>
-                  <p>
-                    {' '}
-                    {times <= 3
-                      ? '*'.repeat(item?.sentence?.length ?? 0)
-                      : item.sentence}{' '}
-                  </p>
-                </Tooltip>
+                <p> Record Time: {item.recordTime} </p>
+                <p> Hit: {times} </p>
+                <p> Memory Times: {item.memoryTimes} </p>
+                <p> {item.phoneticSymbol} </p>
 
-                <PlayCircleFilled
-                  style={{ marginLeft: '20px' }}
-                  onClick={() =>
-                    window.open(`https://youglish.com/pronounce/${item.word}`)
-                  }
-                />
+                <Tooltip title={item.chinese} placement="bottom">
+                  {' '}
+                  {times <= 3 ? '*'.repeat(item.word.length) : item.word}{' '}
+                  <PlayCircleFilled
+                    style={{ marginLeft: 10 }}
+                    onClick={() =>
+                      window.open(`https://youglish.com/pronounce/${item.word}`)
+                    }
+                  />
+                </Tooltip>
+                <p>
+                  {' '}
+                  {times <= 3
+                    ? '*'.repeat(item?.sentence?.length ?? 0)
+                    : item.sentence}{' '}
+                </p>
               </Card>
             </div>
           )}
