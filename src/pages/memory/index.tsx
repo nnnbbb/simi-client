@@ -82,7 +82,11 @@ export default function Memory() {
   const handleEnter = async (event: any) => {
     const v = event.target.value as string;
     // 处理回车事件的逻辑
-    if (item?.word.trim() === v.trim()) {
+    checkWord(v);
+  };
+
+  const checkWord = (word: string) => {
+    if (item?.word.trim() === word.trim()) {
       message.success('Hit!');
 
       setInputValue('');
@@ -99,8 +103,13 @@ export default function Memory() {
       message.error('输入错误');
     }
   };
+
   const handleChange = (event: any) => {
-    setInputValue(event.target.value);
+    const v = event.target.value as string;
+    setInputValue(v);
+    if (v.length === item?.word.length) {
+      checkWord(v);
+    }
   };
 
   const handleExerciseCountChange = (times: number) => {
@@ -193,7 +202,7 @@ export default function Memory() {
               placeholder="输入单词"
               value={inputValue}
               onChange={handleChange}
-              onPressEnter={handleEnter}
+              // onPressEnter={handleEnter}
               ref={inputRef}
             />
           </div>
