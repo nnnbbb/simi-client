@@ -187,17 +187,17 @@ export default function Memory() {
                 <Tooltip title={item.chinese} placement="bottom">
                   {' '}
                   {times <= 3 ? '*'.repeat(item.word.length) : item.word}{' '}
-                  <AudioFilled
-                    style={{ marginLeft: 10 }}
-                    onClick={() => playWordDictvoice(item.word)}
-                  />
-                  <PlayCircleFilled
-                    style={{ marginLeft: 10 }}
-                    onClick={() =>
-                      window.open(`https://youglish.com/pronounce/${item.word}`)
-                    }
-                  />
                 </Tooltip>
+                <AudioFilled
+                  style={{ marginLeft: 10 }}
+                  onClick={() => playWordDictvoice(item.word)}
+                />
+                <PlayCircleFilled
+                  style={{ marginLeft: 10 }}
+                  onClick={() =>
+                    window.open(`https://youglish.com/pronounce/${item.word}`)
+                  }
+                />
                 <p>
                   {' '}
                   {times <= 3
