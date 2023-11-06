@@ -1,4 +1,4 @@
-import { PlayCircleFilled } from '@ant-design/icons';
+import { AudioFilled, PlayCircleFilled } from '@ant-design/icons';
 import {
   Button,
   Card,
@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from 'react';
 import { WordRes } from '../../services/models';
 import { recordGetMemory } from '../../services/record/record-get-memory.service';
 import { recordMemory } from '../../services/record/record-memory.service';
+import { API_BASE_URL } from '../../utils/Http';
 import styles from './styles.module.css';
 
 export default function Memory() {
@@ -118,6 +119,12 @@ export default function Memory() {
     localStorage.setItem('exerciseCount', String(times));
   };
 
+  const playWordDictvoice = (word: string) => {
+    let url = `${API_BASE_URL}/api/word/dictvoice/${word}`;
+    let audio = new Audio(url);
+    audio.play();
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.container}>
@@ -180,6 +187,10 @@ export default function Memory() {
                 <Tooltip title={item.chinese} placement="bottom">
                   {' '}
                   {times <= 3 ? '*'.repeat(item.word.length) : item.word}{' '}
+                  <AudioFilled
+                    style={{ marginLeft: 10 }}
+                    onClick={() => playWordDictvoice(item.word)}
+                  />
                   <PlayCircleFilled
                     style={{ marginLeft: 10 }}
                     onClick={() =>

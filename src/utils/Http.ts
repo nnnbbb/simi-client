@@ -6,8 +6,8 @@ const loginErrorCode = [1, 2, 3, 4];
 
 // 标志异常弹窗出现仅一次
 let loginErrorFlag = false;
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
-console.log('API_BASE_URL ->', API_BASE_URL)
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+console.log('API_BASE_URL ->', API_BASE_URL);
 
 interface CreateHttpProps {
   errorHandling?: boolean;
@@ -24,7 +24,6 @@ const CreateHttp = (HttpProps: CreateHttpProps = {}) => {
 
   instance.interceptors.request.use(
     (config) => {
-
       // @ts-ignore
       config.headers['content-type'] = 'application/json';
       return config;
@@ -51,9 +50,7 @@ const CreateHttp = (HttpProps: CreateHttpProps = {}) => {
             content: msg,
             okText: '确定',
             zIndex: 2000,
-            onOk: () => {
-
-            },
+            onOk: () => {},
           });
         } else {
           return response.data;
@@ -86,9 +83,7 @@ const CreateHttp = (HttpProps: CreateHttpProps = {}) => {
             content: msg,
             okText: '确定',
             zIndex: 2000,
-            onOk: () => {
-
-            },
+            onOk: () => {},
           });
         } else {
           message.error(msg);

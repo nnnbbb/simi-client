@@ -52,5 +52,5 @@ export interface WordRes {
   /**
    * @description: 记忆次数
    */
-  memoryTimes?: string;
+  memoryTimes?: number;
 }
